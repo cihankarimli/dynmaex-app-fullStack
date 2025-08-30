@@ -34,6 +34,7 @@ const contactRoutes = require("./routes/contacts");
 const aboutRoutes = require("./routes/about");
 const servicesRoutes = require("./routes/services");
 const authRoutes = require("./routes/user");
+const { register } = require("./controllers/userController");
 
 app.use("/contacts", contactRoutes);
 app.use("/about", aboutRoutes);

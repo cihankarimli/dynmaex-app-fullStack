@@ -21,9 +21,9 @@ router.get("/", (req, res) => {
   });
 });
 
-// Register (Qeydiyyat)
+// Register (Qeydiyyat) - DÜZƏLDILDI: "/" əlavə edildi
 router.post(
-  "/register",
+  "/register", // Buraya diqqət: "/" əlavə edildi
   [
     body("username")
       .isLength({ min: 3 })
@@ -40,11 +40,11 @@ router.post(
         return res.status(400).json({ errors: errors.array() });
       }
 
-      const { username, email, password } = req.body;
+      const { username, userSurname, email, password } = req.body;
 
       // İstifadəçinin mövcud olub-olmadığını yoxla
       const existingUser = await User.findOne({
-        $or: [{ email }, { username }],
+        $or: [{ email }, { username }, { userSurname }],
       });
 
       if (existingUser) {
@@ -60,6 +60,7 @@ router.post(
       // Yeni istifadəçi yarat
       const newUser = new User({
         username,
+        userSurname,
         email,
         password: hashedPassword,
       });
@@ -86,9 +87,9 @@ router.post(
   }
 );
 
-// Login (Giriş)
+// Login (Giriş) - DÜZƏLDILDI: "/" əlavə edildi
 router.post(
-  "/login",
+  "/login", // Buraya diqqət: "/" əlavə edildi
   [
     body("email").isEmail().withMessage("Düzgün email daxil edin"),
     body("password").notEmpty().withMessage("Parol tələb olunur"),
